@@ -7,11 +7,33 @@ public class Player : KinematicBody2D
 	[Export]
 	private int speed = 200;
 	
+	private PackedScene RocketScene;
+	private Position2D muzzle;
 	
 	public override void _Ready()
 	{
 		base._Ready();
+		
+		RocketScene = GD.Load<PackedScene>("res://scenes/Rocket.tscn");
+		muzzle = GetNode<Position2D>("Muzzle");
 	}
+
+	public override void _Process(float delta)
+	{
+		base._Process(delta);
+		
+		if (Input.IsActionJustPressed("shoot")) 
+		{
+			shoot();
+		}
+	}
+	
+	private void shoot() 
+	{
+		var rocket = RocketScene.Instance<Rocket>();
+		rocket.GlobalPosition = muzzle.GetPosition();
+		AddChild(rocket);
+	}	
 
 	public override void _PhysicsProcess(float delta)
 	{
