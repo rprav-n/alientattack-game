@@ -18,3 +18,8 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="VisibleNotifier" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -19, 0 )
+
+[connection signal="screen_exited" from="VisibleNotifier" to="." method="_on_VisibleNotifier_screen_exited"]

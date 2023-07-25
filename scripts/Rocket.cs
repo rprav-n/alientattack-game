@@ -20,4 +20,9 @@ public class Rocket : Area2D
 		
 		this.GlobalPosition += newPosition;
 	}
+	
+	public void _on_VisibleNotifier_screen_exited() 
+	{
+		QueueFree();
+	}
 }
