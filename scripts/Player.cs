@@ -9,6 +9,7 @@ public class Player : KinematicBody2D
 	
 	private PackedScene RocketScene;
 	private Position2D muzzle;
+	private Node rocketContainer;
 	
 	public override void _Ready()
 	{
@@ -16,6 +17,7 @@ public class Player : KinematicBody2D
 		
 		RocketScene = GD.Load<PackedScene>("res://scenes/Rocket.tscn");
 		muzzle = GetNode<Position2D>("Muzzle");
+		rocketContainer = GetNode<Node>("RocketContainer");
 	}
 
 	public override void _Process(float delta)
@@ -31,8 +33,9 @@ public class Player : KinematicBody2D
 	private void shoot() 
 	{
 		var rocket = RocketScene.Instance<Rocket>();
-		rocket.GlobalPosition = muzzle.GetPosition();
-		AddChild(rocket);
+		rocketContainer.AddChild(rocket);
+		rocket.GlobalPosition = this.GlobalPosition;
+		rocket.GlobalPosition += muzzle.Position;
 	}	
 
 	public override void _PhysicsProcess(float delta)
