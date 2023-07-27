@@ -13,7 +13,6 @@ public class Player : KinematicBody2D
 	
 	public override void _Ready()
 	{
-		base._Ready();
 		
 		RocketScene = GD.Load<PackedScene>("res://scenes/Rocket.tscn");
 		muzzle = GetNode<Position2D>("Muzzle");
@@ -22,7 +21,6 @@ public class Player : KinematicBody2D
 
 	public override void _Process(float delta)
 	{
-		base._Process(delta);
 		
 		if (Input.IsActionJustPressed("shoot")) 
 		{
@@ -40,7 +38,6 @@ public class Player : KinematicBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		base._PhysicsProcess(delta);
 		
 		var newVelocity = Vector2.Zero;
 
