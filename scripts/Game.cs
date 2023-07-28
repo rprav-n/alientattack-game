@@ -5,7 +5,7 @@ public class Game : Node2D
 {
 
 	[Export]
-	private int lives = 3;
+	private int lives = 5;
 	
 	public int score = 0;
 	
@@ -17,6 +17,7 @@ public class Game : Node2D
 		player = GetNode<KinematicBody2D>("Player");
 		hud = GetNode<HUD>("UI/HUD");
 		hud.updateScore(score);
+		hud.setLives(lives);
 	}
 	
 	public void _on_DeadZone_area_entered(Area2D area) 
@@ -35,6 +36,7 @@ public class Game : Node2D
 			GD.Print("Game Over");
 			player.QueueFree();
 		}
+		hud.updateLife(lives);
 	}
 	
 	public void _on_EnemySpawner_enemySpawned(Enemy enemy) 
