@@ -17,9 +17,18 @@ public class Enemy : Area2D
 		
 		this.GlobalPosition += newPosition;
 	}
-	
+		
 	public void Died() 
 	{
 		QueueFree();
+	}
+	
+	public void _on_Enemy_body_entered(Node node) 
+	{
+		if (node is Player player) 
+		{
+			player.takeDamage();
+			Died();
+		}
 	}
 }

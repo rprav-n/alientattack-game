@@ -7,6 +7,9 @@ public class Player : KinematicBody2D
 	[Export]
 	private int speed = 200;
 	
+	[Signal]
+	private delegate void tookDamage();
+		
 	private PackedScene RocketScene;
 	private Position2D muzzle;
 	private Node rocketContainer;
@@ -68,5 +71,11 @@ public class Player : KinematicBody2D
 		
 		
 		this.GlobalPosition = newPosition;
+	}
+	
+	public void takeDamage() 
+	{
+		GD.Print("TakeDamage");
+		this.EmitSignal("tookDamage");
 	}
 }
