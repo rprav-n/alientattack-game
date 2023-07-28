@@ -10,10 +10,13 @@ public class Game : Node2D
 	public int score = 0;
 	
 	private KinematicBody2D player;
+	private HUD hud;
 
 	public override void _Ready()
 	{
 		player = GetNode<KinematicBody2D>("Player");
+		hud = GetNode<HUD>("UI/HUD");
+		hud.updateScore(score);
 	}
 	
 	public void _on_DeadZone_area_entered(Area2D area) 
@@ -43,5 +46,6 @@ public class Game : Node2D
 	public void _on_Enemy_died() 
 	{
 		score += 100;
+		hud.updateScore(score);
 	}
 }
