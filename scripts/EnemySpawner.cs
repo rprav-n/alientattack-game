@@ -4,6 +4,9 @@ using System;
 public class EnemySpawner : Node2D
 {
 
+	[Signal]
+	private delegate void enemySpawned(Enemy enemy);
+
 	private PackedScene EnemyScene;
 	private Node2D spawnPositions;
 	private Godot.Collections.Array spawnPosArr;
@@ -25,6 +28,7 @@ public class EnemySpawner : Node2D
 		
 		var newEnemy = EnemyScene.Instance<Enemy>();
 		newEnemy.GlobalPosition = spawnPosition.Position;
-		AddChild(newEnemy);
+		//AddChild(newEnemy);
+		this.EmitSignal("enemySpawned", newEnemy);
 	}
 }

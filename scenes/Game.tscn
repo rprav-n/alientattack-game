@@ -34,4 +34,5 @@ scale = Vector2( 5, 40 )
 shape = SubResource( 1 )
 
 [connection signal="tookDamage" from="Player" to="." method="_on_Player_tookDamage"]
+[connection signal="enemySpawned" from="EnemySpawner" to="." method="_on_EnemySpawner_enemySpawned"]
 [connection signal="area_entered" from="DeadZone" to="." method="_on_DeadZone_area_entered"]

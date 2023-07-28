@@ -7,6 +7,8 @@ public class Game : Node2D
 	[Export]
 	private int lives = 3;
 	
+	public int score = 0;
+	
 	private KinematicBody2D player;
 
 	public override void _Ready()
@@ -30,5 +32,16 @@ public class Game : Node2D
 			GD.Print("Game Over");
 			player.QueueFree();
 		}
+	}
+	
+	public void _on_EnemySpawner_enemySpawned(Enemy enemy) 
+	{
+		AddChild(enemy);
+		enemy.Connect("died", this, "_on_Enemy_died");
+	}
+	
+	public void _on_Enemy_died() 
+	{
+		score += 100;
 	}
 }

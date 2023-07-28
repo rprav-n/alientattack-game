@@ -5,6 +5,9 @@ public class Enemy : Area2D
 {
 	[Export]
 	private int speed = 200;
+	
+	[Signal]
+	private delegate void died();
 
 	public override void _Ready()
 	{
@@ -21,6 +24,7 @@ public class Enemy : Area2D
 	public void Died() 
 	{
 		QueueFree();
+		this.EmitSignal("died");
 	}
 	
 	public void _on_Enemy_body_entered(Node node) 
