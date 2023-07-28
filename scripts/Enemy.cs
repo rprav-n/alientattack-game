@@ -17,4 +17,9 @@ public class Enemy : Area2D
 		
 		this.GlobalPosition += newPosition;
 	}
+	
+	public void Died() 
+	{
+		QueueFree();
+	}
 }

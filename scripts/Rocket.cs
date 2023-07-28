@@ -25,4 +25,16 @@ public class Rocket : Area2D
 	{
 		QueueFree();
 	}
+	
+	public void _on_Rocket_area_entered(Area2D area) 
+	{
+		if (area is Enemy enemy) 
+		{
+			enemy.Died();
+			
+			// Remove the rocket
+			QueueFree();
+		}
+	}
+	
 }
