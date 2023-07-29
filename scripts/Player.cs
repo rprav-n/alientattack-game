@@ -13,6 +13,7 @@ public class Player : KinematicBody2D
 	private PackedScene RocketScene;
 	private Position2D muzzle;
 	private Node rocketContainer;
+	private AudioStreamPlayer laserSound;
 	
 	public override void _Ready()
 	{
@@ -20,6 +21,7 @@ public class Player : KinematicBody2D
 		RocketScene = GD.Load<PackedScene>("res://scenes/Rocket.tscn");
 		muzzle = GetNode<Position2D>("Muzzle");
 		rocketContainer = GetNode<Node>("RocketContainer");
+		laserSound = GetNode<AudioStreamPlayer>("LaserSound");
 	}
 
 	public override void _Process(float delta)
@@ -33,6 +35,7 @@ public class Player : KinematicBody2D
 	
 	private void shoot() 
 	{
+		laserSound.Play();
 		var rocket = RocketScene.Instance<Rocket>();
 		rocketContainer.AddChild(rocket);
 		rocket.GlobalPosition = this.GlobalPosition;

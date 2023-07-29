@@ -14,6 +14,8 @@ public class Game : Node2D
 	private HUD hud;
 
 	private PackedScene GameOverScene;
+	private AudioStreamPlayer enemyHitSound;
+	private AudioStreamPlayer playerHitSound;
 
 	public override void _Ready()
 	{
@@ -21,6 +23,8 @@ public class Game : Node2D
 		ui = GetNode<CanvasLayer>("UI");
 		hud = GetNode<HUD>("UI/HUD");
 		GameOverScene = ResourceLoader.Load<PackedScene>("res://scenes/GameOver.tscn");
+		enemyHitSound = GetNode<AudioStreamPlayer>("EnemyHitSound");
+		playerHitSound = GetNode<AudioStreamPlayer>("PlayerHitSound");
 		
 		hud.updateScore(score);
 		hud.setLives(lives);
@@ -33,20 +37,21 @@ public class Game : Node2D
 			enemy.QueueFree();
 		}
 	}
-	
-	public async void _on_Player_tookDamage() 
+
+	public void _on_Player_tookDamage()
 	{
+		playerHitSound.Play();
 		lives--;
-		if (lives == 0) 
+		if (lives == 0)
 		{
 			player.QueueFree();
-			
+
 			var timer = GetTree().CreateTimer(1.5f);
 			timer.Connect("timeout", this, "_show_game_over_screen");
 		}
 		hud.updateLife(lives);
 	}
-	
+
 	public void _show_game_over_screen() 
 	{
 		var gameOver = GameOverScene.Instance<GameOver>();
@@ -62,6 +67,7 @@ public class Game : Node2D
 	
 	public void _on_Enemy_died() 
 	{
+		enemyHitSound.Play();
 		score += 100;
 		hud.updateScore(score);
 	}
