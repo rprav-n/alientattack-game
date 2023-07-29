@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/PathEnemy.cs" type="Script" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -387, 827, -101.602, 39.2969, 101.602, -39.2969, 200, 545, -79.6527, 75.2276, 79.6527, -75.2276, 678, 462, -66.3773, 101.778, 66.3773, -101.778, 865, 101, 0, 0, 0, 0, 1544, -292 )
+}
+
+[node name="PathEnemy" type="Path2D"]
+curve = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2( 1544, -292 )
+rotation = -0.398781
+offset = 2274.45
+loop = false
+
+[node name="Enemy" parent="PathFollow2D" instance=ExtResource( 1 )]
+speed = 0
