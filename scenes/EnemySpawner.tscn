@@ -28,4 +28,9 @@ position = Vector2( 1380, 675 )
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="PathEnemyTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="PathEnemyTimer" to="." method="_on_PathEnemyTimer_timeout"]

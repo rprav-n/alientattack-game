@@ -71,4 +71,12 @@ public class Game : Node2D
 		score += 100;
 		hud.updateScore(score);
 	}
+	
+	public void _on_EnemySpawner_pathEnemySpawned(Path2D pathEnemy) 
+	{
+		GD.Print("Path enemy");
+		AddChild(pathEnemy);
+		var enemy = pathEnemy.GetNode<Enemy>("PathFollow2D/Enemy");
+		enemy.Connect("died", this, "_on_Enemy_died");
+	}
 }
