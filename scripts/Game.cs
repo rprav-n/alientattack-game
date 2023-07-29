@@ -10,12 +10,18 @@ public class Game : Node2D
 	public int score = 0;
 	
 	private KinematicBody2D player;
+	private CanvasLayer ui;
 	private HUD hud;
+
+	private PackedScene GameOverScene;
 
 	public override void _Ready()
 	{
 		player = GetNode<KinematicBody2D>("Player");
+		ui = GetNode<CanvasLayer>("UI");
 		hud = GetNode<HUD>("UI/HUD");
+		GameOverScene = ResourceLoader.Load<PackedScene>("res://scenes/GameOver.tscn");
+		
 		hud.updateScore(score);
 		hud.setLives(lives);
 	}
@@ -28,15 +34,24 @@ public class Game : Node2D
 		}
 	}
 	
-	public void _on_Player_tookDamage() 
+	public async void _on_Player_tookDamage() 
 	{
 		lives--;
 		if (lives == 0) 
 		{
-			GD.Print("Game Over");
 			player.QueueFree();
+			
+			var timer = GetTree().CreateTimer(1.5f);
+			timer.Connect("timeout", this, "_show_game_over_screen");
 		}
 		hud.updateLife(lives);
+	}
+	
+	public void _show_game_over_screen() 
+	{
+		var gameOver = GameOverScene.Instance<GameOver>();
+		ui.AddChild(gameOver);
+		gameOver.setScore(score);	
 	}
 	
 	public void _on_EnemySpawner_enemySpawned(Enemy enemy) 
